@@ -1,0 +1,261 @@
+.calendar-card {
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+
+}
+
+.calendar-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 24px;
+
+}
+
+.calendar-header h2 {
+
+    margin: 0;
+
+    font-size: 22px;
+
+    color: #1F2937;
+
+}
+
+.calendar-header span {
+
+    color: #6B7280;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+.weekdays {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    margin-bottom: 8px;
+
+}
+
+.weekday {
+
+    text-align: center;
+
+    padding: 12px;
+
+    font-weight: 600;
+
+    color: #6B7280;
+
+    font-size: 14px;
+
+}
+
+.calendar-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    gap: 10px;
+
+}
+
+.calendar-cell {
+
+    height: 85px;
+
+    border: 1px solid #E5E7EB;
+
+    border-radius: 14px;
+
+    background: white;
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    transition: .25s;
+
+}
+
+.calendar-cell:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 18px rgba(124, 58, 237, .12);
+
+}
+
+.empty-cell {
+
+    border: none;
+
+    background: transparent;
+
+}
+
+.day-number {
+
+    position: absolute;
+
+    top: 10px;
+
+    left: 12px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #374151;
+
+}
+
+.today {
+
+    border: 2px solid #8B5CF6;
+
+    background: #FAF7FF;
+
+}
+
+.status-circle {
+
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+}
+
+.completed {
+
+    background: #22C55E;
+
+}
+
+.partial {
+
+    background: #F59E0B;
+
+}
+
+.missed {
+
+    background: #EF4444;
+
+}
+
+.no-entry {
+
+    background: #D1D5DB;
+
+}
+
+.future-dot {
+
+    width: 14px;
+
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: #E5E7EB;
+
+}
+
+.calendar-legend {
+
+    margin-top: 24px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+    flex-wrap: wrap;
+
+}
+
+.calendar-legend div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 14px;
+
+    color: #6B7280;
+
+}
+
+.legend {
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+}
+
+.legend.completed {
+
+    background: #22C55E;
+
+}
+
+.legend.partial {
+
+    background: #F59E0B;
+
+}
+
+.legend.missed {
+
+    background: #EF4444;
+
+}
+
+.legend.no-entry {
+
+    background: #D1D5DB;
+
+}

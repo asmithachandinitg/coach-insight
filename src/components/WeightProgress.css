@@ -1,0 +1,66 @@
+.weight-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    height: 100%;
+}
+
+.weight-header {
+    margin-bottom: 20px;
+}
+
+.weight-header h2 {
+    margin: 0;
+    color: #5b21b6;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.weight-header p {
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.weight-card svg {
+    width: 100%;
+    height: 320px;
+    overflow: visible;
+}
+
+.weight-tooltip {
+    position: absolute;
+    background: #7c3aed;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    pointer-events: none;
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+    transition: 0.2s ease;
+    z-index: 999;
+}
+
+.weight-tooltip strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.tick text {
+    font-size: 12px;
+    fill: #6b7280;
+}
+
+.domain {
+    stroke: #d8b4fe;
+}
+
+.tick line {
+    stroke: #ede9fe;
+}
+
+.weight-card:hover {
+    box-shadow: 0 12px 35px rgba(124, 58, 237, 0.15);
+    transition: 0.3s ease;
+}

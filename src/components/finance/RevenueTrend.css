@@ -1,0 +1,22 @@
+.finance-card{
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.finance-card-header{
+    margin-bottom:20px;
+}
+
+.finance-card-header h3{
+    margin:0;
+    color:#222;
+    font-size:18px;
+}
+
+.finance-card-header p{
+    margin-top:6px;
+    color:#777;
+    font-size:13px;
+}

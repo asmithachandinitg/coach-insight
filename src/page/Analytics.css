@@ -1,0 +1,74 @@
+/* Shared base — every analytics card should use these two classes,
+   not reinvent their own (this was causing the inconsistent header sizes). */
+.analytics-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    min-width: 0; /* lets content shrink inside a CSS grid track instead of overflowing */
+}
+
+.card-header {
+    margin-bottom: 20px;
+}
+
+.card-header h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    color: #222;
+}
+
+.card-header span {
+    color: #777;
+    font-size: 13px;
+}
+
+/* Page wrapper */
+.analytics {
+    padding: 24px;
+    margin: 0 auto;
+}
+
+.analytics-title {
+    margin-bottom: 24px;
+}
+
+.analytics-title h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 4px;
+}
+
+.analytics-title p {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* A grid row with 3 children (your Workout/Attendance/LastWeek row) —
+   give it its own rule so it doesn't force awkward 2-then-1 wrapping */
+.analytics-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Make every chart's SVG scale to its card instead of a fixed pixel width */
+.analytics-card svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .analytics-grid,
+    .analytics-grid--three {
+        grid-template-columns: 1fr;
+    }
+}

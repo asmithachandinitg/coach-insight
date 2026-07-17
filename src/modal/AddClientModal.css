@@ -1,0 +1,103 @@
+.MuiDialog-paper {
+    border-radius: 20px !important;
+    padding: 10px;
+}
+
+.MuiDialogTitle-root {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #1f2937;
+    border-bottom: 1px solid #edf1f7;
+    padding-bottom: 18px !important;
+}
+
+.MuiDialogContent-root {
+    padding-top: 25px !important;
+}
+
+.MuiStepper-root {
+    margin-bottom: 35px !important;
+}
+
+.MuiStepLabel-label {
+    font-weight: 600 !important;
+}
+
+.MuiTextField-root {
+    margin-bottom: 12px !important;
+}
+
+.MuiOutlinedInput-root {
+    border-radius: 12px !important;
+    background: #fafbfc;
+}
+
+.MuiOutlinedInput-root:hover fieldset {
+    border-color: #2563eb !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: #2563eb !important;
+    border-width: 2px !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+    color: #2563eb !important;
+}
+
+.MuiDialogActions-root {
+    padding: 20px 24px !important;
+    border-top: 1px solid #edf1f7;
+}
+
+.MuiButton-root {
+    text-transform: none !important;
+    border-radius: 10px !important;
+    padding: 10px 24px !important;
+    font-weight: 600 !important;
+}
+
+.MuiButton-contained {
+    background: #2563eb !important;
+}
+
+.MuiButton-contained:hover {
+    background: #1d4ed8 !important;
+}
+
+.MuiButton-outlined {
+    border-color: #2563eb !important;
+    color: #2563eb !important;
+}
+
+.MuiButton-outlined:hover {
+    background: #eff6ff !important;
+}
+
+.MuiFormLabel-root {
+    font-weight: 500 !important;
+}
+
+.MuiMenuItem-root {
+    font-size: 15px !important;
+}
+
+@media (max-width: 768px) {
+    .MuiDialog-paper {
+        margin: 15px !important;
+        width: calc(100% - 30px) !important;
+    }
+
+    .MuiDialogTitle-root {
+        font-size: 22px !important;
+    }
+
+    .MuiDialogActions-root {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .MuiDialogActions-root button {
+        width: 100%;
+    }
+}

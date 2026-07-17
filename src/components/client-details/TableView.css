@@ -1,0 +1,241 @@
+.table-card {
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+
+    overflow-x: auto;
+
+}
+
+.table-card table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+.table-card thead {
+
+    background: #F8F5FF;
+
+}
+
+.table-card th {
+
+    padding: 16px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #6B7280;
+
+}
+
+.table-card td {
+
+    padding: 16px;
+
+    border-bottom: 1px solid #F1F5F9;
+
+    font-size: 14px;
+
+    color: #374151;
+
+}
+
+.table-card tbody tr {
+
+    transition: .25s;
+
+}
+
+.table-card tbody tr:hover {
+
+    background: #FAF7FF;
+
+}
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 6px 14px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: capitalize;
+
+}
+
+.status.completed {
+
+    background: #DCFCE7;
+
+    color: #15803D;
+
+}
+
+.status.partial {
+
+    background: #FEF3C7;
+
+    color: #B45309;
+
+}
+
+.status.missed {
+
+    background: #FEE2E2;
+
+    color: #DC2626;
+
+}
+
+.actions {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+.edit,
+
+.delete {
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 8px;
+
+    display: flex !important;
+
+    justify-content: center;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+.edit {
+
+    color: #7C3AED;
+
+    background: #F3E8FF;
+
+}
+
+.delete {
+
+    color: #EF4444;
+
+    background: #FEE2E2;
+
+}
+
+.edit:hover {
+
+    transform: scale(1.08);
+
+}
+
+.delete:hover {
+
+    transform: scale(1.08);
+
+}
+
+.table-footer {
+
+    margin-top: 24px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+.table-footer button {
+
+    border: none;
+
+    background: #F3F4F6;
+
+    padding: 8px 16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+    font-weight: 500;
+
+}
+
+.table-footer button:hover:not(:disabled) {
+
+    background: #8B5CF6;
+
+    color: white;
+
+}
+
+.table-footer button:disabled {
+
+    opacity: .4;
+
+    cursor: not-allowed;
+
+}
+
+.page-numbers {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+.page-numbers button {
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 8px;
+
+    padding: 0;
+
+}
+
+.active-page {
+
+    background: #8B5CF6 !important;
+
+    color: white;
+
+}

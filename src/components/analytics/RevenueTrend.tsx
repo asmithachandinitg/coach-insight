@@ -1,0 +1,122 @@
+import { useEffect, useRef } from "react";
+import * as d3 from "d3";
+import { clients } from "../../data/clients";
+import "./RevenueTrend.css";
+
+const RevenueTrend = () => {
+    const svgRef = useRef<SVGSVGElement | null>(null);
+
+    useEffect(() => {
+        if (!svgRef.current) return;
+
+        const membershipPrice: Record<string, number> = {
+            "General Membership": 2000,
+            "Personal Training": 5000,
+            "Body Building": 8000,
+        };
+
+        const revenueMap = new Map<string, number>();
+
+        clients.forEach((client) => {
+            const date = new Date(client.joinDate);
+
+            const month = date.toLocaleString("default", {
+                month: "short",
+            });
+
+            const revenue = membershipPrice[client.membership] ?? 0;
+
+            revenueMap.set(
+                month,
+                (revenueMap.get(month) || 0) + revenue
+            );
+        });
+
+        const data = Array.from(revenueMap.entries()).map(
+            ([month, revenue]) => ({
+                month,
+                revenue,
+            })
+        );
+
+        const svg = d3.select(svgRef.current);
+        svg.selectAll("*").remove();
+
+        const width = 500;
+        const height = 320;
+
+        const margin = {
+            top: 20,
+            right: 20,
+            bottom: 40,
+            left: 60,
+        };
+
+        const x = d3
+            .scalePoint<string>()
+            .domain(data.map((d) => d.month))
+            .range([margin.left, width - margin.right]);
+
+        const y = d3
+            .scaleLinear()
+            .domain([0, d3.max(data, (d) => d.revenue)!])
+            .nice()
+            .range([height - margin.bottom, margin.top]);
+
+        const line = d3
+            .line<{ month: string; revenue: number }>()
+            .x((d) => x(d.month)!)
+            .y((d) => y(d.revenue));
+
+        svg.append("g")
+            .attr(
+                "transform",
+                `translate(0,${height - margin.bottom})`
+            )
+            .call(d3.axisBottom(x));
+
+        svg.append("g")
+            .attr(
+                "transform",
+                `translate(${margin.left},0)`
+            )
+            .call(
+                d3.axisLeft(y).tickFormat((d) => `₹${d3.format(".2s")(Number(d))}`)
+            );
+
+        svg.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "#8B5CF6")
+            .attr("stroke-width", 3)
+            .attr("d", line);
+
+        svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", (d) => x(d.month)!)
+            .attr("cy", (d) => y(d.revenue))
+            .attr("r", 5)
+            .attr("fill", "#8B5CF6");
+
+    }, []);
+
+    return (
+        <div className="analytics-card">
+            <div className="card-header">
+                <h3>Revenue Trend</h3>
+                <span>Monthly Membership Revenue</span>
+            </div>
+
+            <svg
+                ref={svgRef}
+                width="100%"
+                height="320"
+                viewBox="0 0 500 320"
+            />
+        </div>
+    );
+};
+
+export default RevenueTrend;

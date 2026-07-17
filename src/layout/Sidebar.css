@@ -1,0 +1,50 @@
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #DDD6FE;
+    padding: 30px 20px;
+}
+
+.logo h2 {
+    color: #7C3AED;
+    font-size: 26px;
+}
+
+.logo p {
+    color: #6B7280;
+    margin-top: 5px;
+    margin-bottom: 40px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: #6B7280;
+    padding: 14px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.menu:hover {
+    background: #F5F3FF;
+    color: #7C3AED;
+    transform: translateX(4px);
+}
+
+.active {
+    background: linear-gradient(135deg, #A78BFA, #8B5CF6);
+    color: white;
+    box-shadow: 0 6px 18px rgba(139, 92, 246, 0.25);
+}

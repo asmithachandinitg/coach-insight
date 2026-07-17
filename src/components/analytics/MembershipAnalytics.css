@@ -1,0 +1,19 @@
+/* This file was empty before — that's why this card had no background,
+   padding, or shadow next to the properly styled ones. */
+
+.analytics-card svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Axis text sizing for this specific chart, since it's a bar chart with
+   rotated/tight labels that can look cramped at default size */
+.analytics-card .tick text {
+    font-size: 11px;
+    fill: #6b7280;
+}
+
+.analytics-card .domain {
+    stroke: #e5e7eb;
+}

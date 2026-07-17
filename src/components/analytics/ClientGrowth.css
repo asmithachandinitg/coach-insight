@@ -1,0 +1,77 @@
+.growth-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+.growth-header{
+    margin-bottom:20px;
+}
+
+.growth-header h2{
+    font-size:22px;
+    margin-bottom:4px;
+}
+
+.growth-header p{
+    color:#777;
+    font-size:14px;
+}
+
+.growth-tooltip{
+    position:absolute;
+    background:#8B5CF6;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    pointer-events:none;
+    font-size:13px;
+}
+
+/* Note: this component uses its own .growth-card/.growth-header instead of
+   the shared .analytics-card/.card-header classes every other tile uses.
+   Ideally swap the classNames in ClientGrowth.tsx to the shared ones and
+   delete this duplication — kept separate here only so it matches visually
+   without you having to touch the .tsx right now. */
+
+.growth-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    min-width: 0;
+}
+
+.growth-header {
+    margin-bottom: 20px;
+}
+
+.growth-header h2 {
+    font-size: 18px; /* was 22px — now matches every other card's h3 */
+    margin: 0 0 4px;
+    color: #222;
+}
+
+.growth-header p {
+    color: #777;
+    font-size: 13px; /* was 14px — now matches every other card's span */
+    margin: 0;
+}
+
+.growth-card svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.growth-tooltip {
+    position: absolute;
+    background: #8b5cf6;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    pointer-events: none;
+    font-size: 13px;
+    z-index: 20;
+}

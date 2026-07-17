@@ -1,0 +1,26 @@
+.finance-donut{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.finance-legend{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.finance-legend-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    color:#444;
+}
+
+.finance-legend-color{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+}
