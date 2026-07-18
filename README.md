@@ -1,75 +1,124 @@
-# React + TypeScript + Vite
+# CoachInsight 🏋️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A focused BI dashboard built for a single personal trainer to track client progress, attendance, and goals — designed around a real trainer's actual daily workflow rather than a generic analytics template.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## The problem
 
-## React Compiler
+I built this around a real user: a personal trainer who currently tracks everything on paper and his phone — session duration, muscle group trained that day, weight/progress notes, and for his personal-training and bodybuilding clients specifically, meal photos, step counts, and water intake as accountability proof.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+He works walk-in style: a client arrives, he checks what was trained yesterday, decides today's focus, and stands with them for 45–60 minutes taking notes. There's no clean way for him to see, at a glance, who's on track and who's falling behind across his full client list.
 
-## Expanding the ESLint configuration
+**What I decided to act on:** rather than build a general-purpose gym CRM, I focused the core insight on this question — *"who is progressing, who is stalling, and why"* — visible at a glance across his roster, with a lighter-weight experience for general members and a fuller accountability layer (water, steps, meal logging) for weight-loss and bodybuilding clients specifically, since those are the two categories he personally coaches toward a goal.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Design decisions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Category-based feature depth, not one-size-fits-all.** General members get a simple session log. Weight-loss and bodybuilding clients get goal-gap tracking and accountability metrics. This mirrors how the trainer actually treats these clients differently — it's not decorative, it's functional scoping.
+- **A yesterday → today focus line** on the roster view, instead of a generic calendar. This answers the exact question he asks himself every morning ("what did we train last, what's next"), which a standard BI tool wouldn't surface.
+- **Plain-English "why this trend" explanations** on stalling clients, generated from attendance, water, and step data — so the trainer doesn't have to manually cross-reference logs to spot a pattern.
+- **State management:** React Context, not Redux — the shared state (selected category filter, selected client) is small and doesn't justify the extra boilerplate at this scale.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## What I'd build next with another week
+
+- Real backend + persistence (currently static/mock data)
+- Replace the rule-based "why this trend" explanations with an actual LLM API call for more nuanced, varied insight generation
+- Trim scope: in hindsight, Finance and the full Dashboard page go beyond what the brief asked for ("a small, well-chosen subset of features") — I'd have focused entirely on Client Details + Insights and cut the rest
+- Real photo upload for meal-proof logging (currently a checkbox placeholder)
+
+---
+
+## AI tools used, and how
+
+I used Claude throughout development, specifically for:
+- **Component architecture decisions** — e.g. talking through Context vs. Redux for this scale, and category-based conditional rendering for the accountability features
+- **Debugging real bugs**, not just generating code — e.g. tracing a chart axis rendering issue caused by calling `d3.axisLeft()` twice with mismatched tick counts, and a CSS specificity/load-order bug where mobile styles were being silently overridden
+- **Migrating all chart components from D3 to Plotly** partway through the build, after realizing the brief required Plotly specifically
+- **Responsive design pass** — identifying which layout containers (sidebar, header, chart grids) had no mobile handling at all and fixing them
+- Drafting this README
+
+All architecture decisions, data modeling, and final integration were done and reviewed by me — Claude was used as a collaborator for speed and for catching bugs I'd have spent longer finding manually, not as a black box that produced the app unsupervised.
+
+---
+
+## Features
+
+**Dashboard** — KPI summary cards, today's schedule, quick stats
+
+**Client Management** — directory, search/filter, client profile, goal tracking, progress history
+
+**Analytics** — client growth, workout distribution, membership breakdown, revenue trend, goal achievement, attendance
+
+**Insights** — top performers, clients needing attention, smart recommendations
+
+**Revenue & Payments** — revenue summary, payment status, monthly collections, installment tracking
+
+---
+
+## Charts
+
+All charts are built with **Plotly** (`react-plotly.js`) — line charts, bar charts, donut charts, and progress visualizations.
+
+---
+
+## Tech stack
+
+| Category | Technology |
+|----------|------------|
+| Frontend | React 19 |
+| Language | TypeScript |
+| Build Tool | Vite |
+| Routing | React Router |
+| Charts | Plotly |
+| Styling | CSS3 |
+| Icons | Lucide React |
+
+---
+
+## Folder structure
 
 ```
+src/
+├── components/
+├── charts/
+├── pages/
+├── modals/
+├── data/
+├── utils/
+├── types/
+├── assets/
+└── layout/
+```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Architecture
 
 ```
+Pages
+  → Reusable UI Components
+    → Charts (Plotly)
+      → Static demo data
+```
+
+Each page handles presentation only; reusable components encapsulate visualization and UI behavior. Data is currently static/mock, isolated behind a data layer so it's a straightforward swap for a real API later.
+
+---
+
+## Getting started
+
+```bash
+npm install
+npm run dev       # start dev server
+npm run build     # production build
+```
+
+---
+
+## Author
+
+Built as part of a Product Interface Engineer take-home assessment, focused on frontend architecture, interactive data visualization, responsive design, and product/UX judgment under a real user constraint.
