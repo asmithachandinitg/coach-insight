@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import "./PaymentStatus.css";
 
 const data = [
@@ -40,7 +41,7 @@ const PaymentStatus = () => {
                         showlegend: false,
                         paper_bgcolor: "transparent",
                     }}
-                    config={{ displayModeBar: false }}
+                    config={getPlotlyConfig("payment-status")}
                 />
 
                 <div className="finance-legend">

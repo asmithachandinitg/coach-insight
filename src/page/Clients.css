@@ -22,6 +22,11 @@
     font-size: 15px;
 }
 
+.clients-header-actions {
+    display: flex;
+    gap: 12px;
+}
+
 .add-btn {
     background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     color: white;
@@ -37,6 +42,23 @@
 .add-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(139, 92, 246, .25);
+}
+
+.export-btn {
+    background: white;
+    color: #7c3aed;
+    border: 1px solid #ddd6fe;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.export-btn:hover {
+    background: #f5f3ff;
+    border-color: #8b5cf6;
 }
 
 .filters {
@@ -70,14 +92,31 @@
     margin-bottom: 12px;
 }
 
+.clients-skeleton {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
 .client-table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     background: white;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,.06);
 }
+
+.client-table th:nth-child(1) { width: 6%; }
+.client-table th:nth-child(2) { width: 22%; }
+.client-table th:nth-child(3) { width: 12%; }
+.client-table th:nth-child(4) { width: 14%; }
+.client-table th:nth-child(5) { width: 9%; }
+.client-table th:nth-child(6) { width: 16%; }
+.client-table th:nth-child(7) { width: 10%; }
+.client-table th:nth-child(8) { width: 15%; }
 
 .client-table thead {
     background: #f3e8ff;
@@ -120,13 +159,6 @@
     background: #faf5ff;
 }
 
-.empty-state {
-    text-align: center;
-    padding: 40px 18px !important;
-    color: #9ca3af;
-    font-style: italic;
-}
-
 .client-name {
     display: flex;
     align-items: center;
@@ -144,6 +176,7 @@
     justify-content: center;
     font-weight: bold;
     font-size: 18px;
+    flex-shrink: 0;
 }
 
 .client-name h4 {
@@ -230,6 +263,14 @@
         gap: 20px;
     }
 
+    .clients-header-actions {
+        width: 100%;
+    }
+
+    .clients-header-actions button {
+        flex: 1;
+    }
+
     .filters {
         flex-direction: column;
     }
@@ -241,5 +282,6 @@
     .client-table {
         display: block;
         overflow-x: auto;
+        table-layout: auto;
     }
 }

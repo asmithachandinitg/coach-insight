@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../utils/plotlyConfig";
 import "./BarChart.css";
 
 interface ChartData {
@@ -56,7 +57,7 @@ const BarChart = ({ title, subtitle, data }: BarChartProps) => {
                     showlegend: false,
                     hoverlabel: { bgcolor: "#6D28D9", font: { color: "#fff" } },
                 }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={getPlotlyConfig("bar-chart")}
                 style={{ width: "100%" }}
                 useResizeHandler
             />

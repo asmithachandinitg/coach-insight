@@ -1,10 +1,15 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     Delete,
     Edit,
 } from "@mui/icons-material";
+import { Skeleton } from "@mui/material";
+import EventBusyOutlinedIcon from "@mui/icons-material/EventBusyOutlined";
+import toast from "react-hot-toast";
 
 import { dailyLogs } from "../../data/dailyLogs";
+import EmptyState from "../EmptyState";
+import { exportToCSV } from "../../utils/csvExport";
 
 import "./TableView.css";
 
@@ -16,6 +21,12 @@ const TableView = () => {
     const [workoutFilter, setWorkoutFilter] = useState("All");
     const [statusFilter, setStatusFilter] = useState("All");
     const [dateFilter, setDateFilter] = useState("");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 650);
+        return () => clearTimeout(timer);
+    }, []);
 
     const workoutOptions = useMemo(() => {
         const unique = Array.from(new Set(dailyLogs.map((log) => log.workout)));
@@ -73,6 +84,7 @@ const TableView = () => {
                 <select
                     value={workoutFilter}
                     onChange={(e) => handleWorkoutFilter(e.target.value)}
+                    aria-label="Filter by workout"
                 >
                     {workoutOptions.map((option) => (
                         <option key={option} value={option}>
@@ -84,6 +96,7 @@ const TableView = () => {
                 <select
                     value={statusFilter}
                     onChange={(e) => handleStatusFilter(e.target.value)}
+                    aria-label="Filter by status"
                 >
                     <option value="All">All statuses</option>
                     <option value="completed">Completed</option>
@@ -96,6 +109,7 @@ const TableView = () => {
                     value={dateFilter}
                     onChange={(e) => handleDateFilter(e.target.value)}
                     className="table-date-filter"
+                    aria-label="Filter by date"
                 />
 
                 {dateFilter !== "" && (
@@ -107,12 +121,50 @@ const TableView = () => {
                     </button>
                 )}
 
+                <button
+                    className="table-export-btn"
+                    onClick={() => {
+                        exportToCSV(
+                            logs,
+                            `daily-logs-${new Date().toISOString().slice(0, 10)}.csv`,
+                            [
+                                { key: "date", label: "Date" },
+                                { key: "weight", label: "Weight (kg)" },
+                                { key: "workout", label: "Workout" },
+                                { key: "status", label: "Status" },
+                                { key: "calories", label: "Calories" },
+                                { key: "sleep", label: "Sleep (hrs)" },
+                                { key: "water", label: "Water (L)" },
+                                { key: "mood", label: "Mood" },
+                            ]
+                        );
+                        toast.success(`Exported ${logs.length} log entries to CSV`);
+                    }}
+                    aria-label="Export daily logs to CSV"
+                >
+                    Export CSV
+                </button>
+
                 <span className="table-results-count">
                     {logs.length} {logs.length === 1 ? "entry" : "entries"}
                 </span>
 
             </div>
 
+            {loading ? (
+                <div className="table-skeleton">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                        <Skeleton key={i} variant="rounded" height={48} sx={{ mb: 1, borderRadius: "8px" }} />
+                    ))}
+                </div>
+            ) : logs.length === 0 ? (
+                <EmptyState
+                    icon={EventBusyOutlinedIcon}
+                    title="No logs match your filters"
+                    message="Try a different workout, status, or date."
+                />
+            ) : (
+            <>
             <table>
 
                 <thead>
@@ -142,14 +194,6 @@ const TableView = () => {
                 </thead>
 
                 <tbody>
-
-                    {currentRows.length === 0 && (
-                        <tr>
-                            <td colSpan={9} className="table-empty-state">
-                                No logs match your filters.
-                            </td>
-                        </tr>
-                    )}
 
                     {currentRows.map(log => (
 
@@ -231,15 +275,27 @@ const TableView = () => {
 
                                 <div className="actions">
 
-                                    <Edit
-                                        className="edit"
-                                        fontSize="small"
-                                    />
+                                    <button
+                                        className="icon-action-btn"
+                                        aria-label={`Edit log for ${log.date}`}
+                                        onClick={() => toast("Edit not implemented in this demo")}
+                                    >
+                                        <Edit
+                                            className="edit"
+                                            fontSize="small"
+                                        />
+                                    </button>
 
-                                    <Delete
-                                        className="delete"
-                                        fontSize="small"
-                                    />
+                                    <button
+                                        className="icon-action-btn"
+                                        aria-label={`Delete log for ${log.date}`}
+                                        onClick={() => toast("Delete not implemented in this demo")}
+                                    >
+                                        <Delete
+                                            className="delete"
+                                            fontSize="small"
+                                        />
+                                    </button>
 
                                 </div>
 
@@ -259,6 +315,7 @@ const TableView = () => {
                     onClick={() =>
                         setPage(page - 1)
                     }
+                    aria-label="Previous page"
                 >
 
                     Previous
@@ -283,6 +340,8 @@ const TableView = () => {
                                 onClick={() =>
                                     setPage(i + 1)
                                 }
+                                aria-label={`Page ${i + 1}`}
+                                aria-current={page === i + 1 ? "page" : undefined}
                             >
 
                                 {i + 1}
@@ -295,12 +354,9 @@ const TableView = () => {
                 </div>
 
                 <button
-                    disabled={
-                        page === totalPages
-                    }
-                    onClick={() =>
-                        setPage(page + 1)
-                    }
+                    disabled={page === totalPages}
+                    onClick={() => setPage(page + 1)}
+                    aria-label="Next page"
                 >
 
                     Next
@@ -308,6 +364,8 @@ const TableView = () => {
                 </button>
 
             </div>
+            </>
+            )}
 
         </div>
 

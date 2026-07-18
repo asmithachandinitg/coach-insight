@@ -67,6 +67,34 @@
     background: #FECACA;
 }
 
+.table-export-btn {
+    border: 1px solid #DDD6FE;
+    background: white;
+    color: #7C3AED;
+    padding: 9px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.table-export-btn:hover {
+    background: #F5F3FF;
+    border-color: #8B5CF6;
+}
+
+.table-skeleton {
+    padding: 4px 0;
+}
+
+.icon-action-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    display: flex !important;
+    cursor: pointer;
+}
+
 .table-results-count {
     margin-left: auto;
     font-size: 13px;

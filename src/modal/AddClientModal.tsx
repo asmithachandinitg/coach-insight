@@ -20,8 +20,8 @@ interface AddClientModalProps {
     open: boolean;
     onClose: () => void;
     onSave?: (client: ClientForm) => void;
-    onUpdate?: (client: any) => void;
-    editClient?: any;
+    onUpdate?: (client: ClientForm) => void;
+    editClient?: ClientForm;
 }
 
 interface ClientForm {

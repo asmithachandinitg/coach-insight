@@ -16,6 +16,7 @@ export interface Client {
   sessionTime: string;
   workoutDay: string;
   joinDate: string;
+  notes?: string;
 }
 
 export const clients: Client[] = [

@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import "./WeightProgress.css";
 
 interface Props {
@@ -8,7 +9,6 @@ interface Props {
 
 const WeightProgress = ({ currentWeight, targetWeight }: Props) => {
 
-    // Still a fake 30-day series — swap for real logged data once available.
     const weightLogs = [
         { day: 1, weight: 89 },
         { day: 3, weight: 88.8 },
@@ -92,7 +92,7 @@ const WeightProgress = ({ currentWeight, targetWeight }: Props) => {
                     ],
                     showlegend: false,
                 }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={getPlotlyConfig("client-weight-progress")}
                 style={{ width: "100%" }}
                 useResizeHandler
             />

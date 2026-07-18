@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../utils/plotlyConfig";
 import { clients } from "../data/clients";
 import "./WeightProgress.css";
 
@@ -50,7 +51,7 @@ const WeightProgress = () => {
                     showlegend: false,
                     hoverlabel: { bgcolor: "#8B5CF6", font: { color: "#fff" } },
                 }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={getPlotlyConfig("roster-weight-progress")}
                 style={{ width: "100%" }}
                 useResizeHandler
             />

@@ -1,33 +1,19 @@
 .daily-entry{
-
     width:420px;
-
     padding:30px;
-
     display:flex;
-
     flex-direction:column;
-
     gap:18px;
-
 }
 
 .daily-entry h2{
-
     margin-bottom:10px;
-
     color:#5B21B6;
-
 }
 
 .drawer-buttons{
-
     display:flex;
-
     justify-content:flex-end;
-
     gap:15px;
-
     margin-top:20px;
-
 }

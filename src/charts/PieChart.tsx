@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../utils/plotlyConfig";
 import "./PieChart.css";
 
 interface PieChartData {
@@ -65,7 +66,7 @@ const PieChart = ({ title, subtitle, data }: PieChartProps) => {
                             },
                         ],
                     }}
-                    config={{ displayModeBar: false }}
+                    config={getPlotlyConfig("pie-chart")}
                 />
 
                 <div className="pie-legend">

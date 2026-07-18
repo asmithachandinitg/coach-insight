@@ -1,0 +1,51 @@
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 24px;
+    color: #6b7280;
+}
+
+.empty-state-icon {
+    font-size: 40px;
+    color: #c4b5fd;
+    background: #f5f3ff;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.empty-state h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 6px;
+}
+
+.empty-state p {
+    font-size: 13px;
+    color: #9ca3af;
+    max-width: 320px;
+    margin: 0 0 16px;
+}
+
+.empty-state-action {
+    border: none;
+    background: #8b5cf6;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.empty-state-action:hover {
+    background: #7c3aed;
+}

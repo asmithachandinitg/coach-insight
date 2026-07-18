@@ -33,13 +33,13 @@
   overflow: visible;
 }
 
+/* d3 axis text */
 .weight-progress-card .tick text {
   font-size: 12px;
   fill: #9ca3af;
   font-family: inherit;
 }
 
-/* tooltip, appended to body by the D3 code */
 .weight-tooltip {
   position: absolute;
   pointer-events: none;
@@ -59,7 +59,7 @@
   border-radius: 14px;
   padding: 20px 20px 16px;
   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
-  height: fit-content;       /* stop it stretching to match a taller sibling */
+  height: fit-content;      
 }
 
 .weight-progress-header {
@@ -108,5 +108,5 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 16px;
-  align-items: start;   /* ← add this so cards size to their own content */
+  align-items: start;   
 }

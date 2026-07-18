@@ -1,7 +1,11 @@
 import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import EmptyState from "../EmptyState";
+import { exportToCSV } from "../../utils/csvExport";
 import "./InstallmentTracker.css";
 
-interface Payment {
+export interface Payment {
     id: number;
     name: string;
     membership: string;
@@ -9,7 +13,7 @@ interface Payment {
     paid: number;
 }
 
-const payments: Payment[] = [
+export const payments: Payment[] = [
     {
         id: 1,
         name: "Rahul Sharma",
@@ -98,11 +102,13 @@ const InstallmentTracker = () => {
                     placeholder="Search client..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    aria-label="Search clients by name"
                 />
 
                 <select
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
+                    aria-label="Filter by payment status"
                 >
                     <option>All</option>
                     <option>Paid</option>
@@ -110,7 +116,39 @@ const InstallmentTracker = () => {
                     <option>Due</option>
                 </select>
 
+                <button
+                    className="finance-export-btn"
+                    onClick={() => {
+                        exportToCSV(
+                            filteredPayments.map((p) => ({
+                                ...p,
+                                balance: p.totalFee - p.paid,
+                            })),
+                            `installments-${new Date().toISOString().slice(0, 10)}.csv`,
+                            [
+                                { key: "name", label: "Client" },
+                                { key: "membership", label: "Membership" },
+                                { key: "totalFee", label: "Total Fee" },
+                                { key: "paid", label: "Paid" },
+                                { key: "balance", label: "Balance" },
+                            ]
+                        );
+                        toast.success(`Exported ${filteredPayments.length} records to CSV`);
+                    }}
+                    aria-label="Export payments to CSV"
+                >
+                    Export CSV
+                </button>
+
             </div>
+
+            {filteredPayments.length === 0 ? (
+                <EmptyState
+                    icon={ReceiptLongOutlinedIcon}
+                    title="No payments match your filters"
+                    message="Try a different search term or status filter."
+                />
+            ) : (
 
             <table className="finance-table">
 
@@ -183,7 +221,7 @@ const InstallmentTracker = () => {
 
                                 <td>
 
-                                    <button className="finance-btn">
+                                    <button className="finance-btn" aria-label={`View ${client.name}'s payment details`}>
                                         View
                                     </button>
 
@@ -198,6 +236,7 @@ const InstallmentTracker = () => {
                 </tbody>
 
             </table>
+            )}
 
         </div>
 

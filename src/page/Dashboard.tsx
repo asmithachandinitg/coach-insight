@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Skeleton } from "@mui/material";
 import "./Dashboard.css";
 import AddClientModal from "../modal/AddClientModal";
 import KpiCard from "../components/KpiCard";
 import { clients } from "../data/clients";
 import TodaySchedule from "../components/TodaySchedule";
+import QuickActions from "../components/QuickActions";
 
 const Dashboard = () => {
 
     const [openModal, setOpenModal] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 700);
+        return () => clearTimeout(timer);
+    }, []);
 
     const activeClients = clients.filter(
         (client) => client.status === "Active"
@@ -66,57 +74,65 @@ const Dashboard = () => {
                 onClose={() => setOpenModal(false)}
             />
 
-            <div className="dashboard-cards">
+            {loading ? (
+                <>
+                    <div className="dashboard-cards">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                            <Skeleton key={i} variant="rounded" height={110} sx={{ borderRadius: "14px" }} />
+                        ))}
+                    </div>
+                    <div className="dashboard-grid" style={{ marginTop: 20 }}>
+                        <Skeleton variant="rounded" height={280} sx={{ borderRadius: "16px" }} />
+                        <Skeleton variant="rounded" height={280} sx={{ borderRadius: "16px" }} />
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className="dashboard-cards">
 
-                <KpiCard
-                    title="Active Clients"
-                    value={activeClients}
-                    subtitle={`${totalClients} enrolled`}
-                    icon="👥"
-                    color="#8B5CF6"
-                />
+                        <KpiCard
+                            title="Active Clients"
+                            value={activeClients}
+                            subtitle={`${totalClients} enrolled`}
+                            icon="👥"
+                            color="#8B5CF6"
+                        />
 
-                <KpiCard
-                    title="Today's Sessions"
-                    value={todaysSessions}
-                    subtitle="Scheduled today"
-                    icon="📅"
-                    color="#10B981"
-                />
+                        <KpiCard
+                            title="Today's Sessions"
+                            value={todaysSessions}
+                            subtitle="Scheduled today"
+                            icon="📅"
+                            color="#10B981"
+                        />
 
-                <KpiCard
-                    title="Monthly Revenue"
-                    value={`₹${monthlyRevenue}`}
-                    subtitle="Current month"
-                    icon="💰"
-                    color="#F59E0B"
-                />
+                        <KpiCard
+                            title="Monthly Revenue"
+                            value={`₹${monthlyRevenue}`}
+                            subtitle="Current month"
+                            icon="💰"
+                            color="#F59E0B"
+                        />
 
-                <KpiCard
-                    title="Goal Completion"
-                    value={`${goalCompletion}%`}
-                    subtitle="Average Progress"
-                    icon="🎯"
-                    color="#EC4899"
-                />
+                        <KpiCard
+                            title="Goal Completion"
+                            value={`${goalCompletion}%`}
+                            subtitle="Average Progress"
+                            icon="🎯"
+                            color="#EC4899"
+                        />
 
-            </div>
+                    </div>
 
-            <div className="dashboard-grid">
+                    <div className="dashboard-grid">
 
-                <TodaySchedule />
+                        <TodaySchedule />
 
-                {/* <WeightProgress /> */}
+                        <QuickActions onAddClient={() => setOpenModal(true)} />
 
-            </div>
-
-            <div className="dashboard-grid">
-
-                {/* <MembershipDistribution />
-
-                <GoalDistribution /> */}
-
-            </div>
+                    </div>
+                </>
+            )}
         </>
     );
 };

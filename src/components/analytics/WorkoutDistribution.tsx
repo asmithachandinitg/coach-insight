@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import { clients } from "../../data/clients";
 import "./WorkoutDistribution.css";
 
@@ -55,7 +56,7 @@ const WorkoutDistribution = () => {
                         showlegend: false,
                         paper_bgcolor: "transparent",
                     }}
-                    config={{ displayModeBar: false }}
+                    config={getPlotlyConfig("workout-distribution")}
                 />
 
                 <div className="chart-legend">

@@ -29,12 +29,6 @@
     font-size:13px;
 }
 
-/* Note: this component uses its own .growth-card/.growth-header instead of
-   the shared .analytics-card/.card-header classes every other tile uses.
-   Ideally swap the classNames in ClientGrowth.tsx to the shared ones and
-   delete this duplication — kept separate here only so it matches visually
-   without you having to touch the .tsx right now. */
-
 .growth-card {
     background: #fff;
     border-radius: 16px;
@@ -48,14 +42,14 @@
 }
 
 .growth-header h2 {
-    font-size: 18px; /* was 22px — now matches every other card's h3 */
+    font-size: 18px; 
     margin: 0 0 4px;
     color: #222;
 }
 
 .growth-header p {
     color: #777;
-    font-size: 13px; /* was 14px — now matches every other card's span */
+    font-size: 13px;
     margin: 0;
 }
 

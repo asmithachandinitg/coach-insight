@@ -1,9 +1,8 @@
 import "./Header.css";
 
 import SearchIcon from "@mui/icons-material/Search";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import NotificationCenter from "../components/NotificationCenter";
 
 const Header = () => {
   const getGreeting = () => {
@@ -41,19 +40,16 @@ const Header = () => {
       <div className="header-right">
         <div className="search-box">
           <SearchIcon className="search-icon" />
-          <input type="text" placeholder="Search clients..." />
+          <input type="text" placeholder="Search clients..." aria-label="Search clients" />
         </div>
 
-        <button className="icon-btn">
-          <NotificationsNoneIcon />
-        </button>
+        <NotificationCenter />
 
-        <button className="icon-btn">
+        <button className="icon-btn" aria-label="Account">
           <AccountCircleOutlinedIcon />
         </button>
 
         <div className="date-card">
-          {/* <CalendarTodayOutlinedIcon fontSize="small" /> */}
           <span>{today}</span>
         </div>
       </div>

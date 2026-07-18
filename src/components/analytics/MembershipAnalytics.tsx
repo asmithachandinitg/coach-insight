@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import { clients } from "../../data/clients";
 import "./MembershipAnalytics.css";
 
@@ -44,7 +45,7 @@ const MembershipAnalytics = () => {
                     yaxis: { showgrid: true, gridcolor: "#e5e7eb", zeroline: false },
                     showlegend: false,
                 }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={getPlotlyConfig("membership-analytics")}
                 style={{ width: "100%" }}
                 useResizeHandler
             />

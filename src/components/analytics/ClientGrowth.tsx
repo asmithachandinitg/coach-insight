@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import { getClientGrowth } from "../../data/analytics";
 import "./ClientGrowth.css";
 
@@ -44,7 +45,7 @@ const ClientGrowth = () => {
                     showlegend: false,
                     hoverlabel: { bgcolor: "#8B5CF6", font: { color: "#fff" } },
                 }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={getPlotlyConfig("client-growth")}
                 style={{ width: "100%" }}
                 useResizeHandler
             />

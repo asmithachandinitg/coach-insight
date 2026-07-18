@@ -151,13 +151,13 @@ const DailyLogModal = ({
 
     return (
 
-        <div className="modal-overlay">
+        <div className="modal-overlay" role="presentation">
 
-            <div className="daily-modal">
+            <div className="daily-modal" role="dialog" aria-modal="true" aria-labelledby="daily-modal-title">
 
                 <div className="modal-header">
 
-                    <h2>
+                    <h2 id="daily-modal-title">
 
                         {mode === "add"
 
@@ -170,6 +170,7 @@ const DailyLogModal = ({
                     <button
 
                         onClick={onClose}
+                        aria-label="Close dialog"
 
                     >
 

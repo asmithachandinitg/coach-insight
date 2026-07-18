@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import { clients } from "../../data/clients";
 import "./RevenueTrend.css";
 
@@ -56,7 +57,7 @@ const RevenueTrend = () => {
                     },
                     showlegend: false,
                 }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={getPlotlyConfig("analytics-revenue-trend")}
                 style={{ width: "100%" }}
                 useResizeHandler
             />

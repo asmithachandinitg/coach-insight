@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import "./GoalProgress.css";
 
 interface Props {
@@ -56,7 +57,7 @@ const GoalProgress = ({ startWeight, currentWeight, targetWeight }: Props) => {
                         },
                     ],
                 }}
-                config={{ displayModeBar: false }}
+                config={getPlotlyConfig("goal-progress")}
             />
 
             <div className="goal-stats">

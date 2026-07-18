@@ -1,3 +1,5 @@
+
+
 html, body {
     overflow-x: hidden;
 }
@@ -127,4 +129,13 @@ img, svg, canvas, iframe, video {
         font-size: 11px !important;
         padding: 4px !important;
     }
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #8B5CF6;
+    outline-offset: 2px;
 }

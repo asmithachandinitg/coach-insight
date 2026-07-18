@@ -22,7 +22,6 @@ const validClients = clients.filter(client => {
     return joinDate <= today;
 });
 
-// ---------------- CLIENT GROWTH ----------------
 
 export const getClientGrowth = () => {
 
@@ -53,7 +52,6 @@ export const getClientGrowth = () => {
 
 };
 
-// ---------------- GOAL DISTRIBUTION ----------------
 
 export const getGoalDistribution = () => {
 
@@ -77,7 +75,6 @@ export const getGoalDistribution = () => {
 
 };
 
-// ---------------- MEMBERSHIP ----------------
 
 export const getMembershipDistribution = () => {
 
@@ -101,7 +98,6 @@ export const getMembershipDistribution = () => {
 
 };
 
-// ---------------- TRAINERS ----------------
 
 export const getTrainerDistribution = () => {
 
@@ -125,7 +121,6 @@ export const getTrainerDistribution = () => {
 
 };
 
-// ---------------- STATUS ----------------
 
 export const getClientStatus = () => {
 
@@ -161,7 +156,6 @@ export const getClientStatus = () => {
 
 };
 
-// ---------------- AVERAGE PROGRESS ----------------
 
 export const getAverageProgress = () => {
 
@@ -174,7 +168,6 @@ export const getAverageProgress = () => {
 
 };
 
-// ---------------- MEMBERSHIP REVENUE ----------------
 
 export const getRevenueAnalytics = () => {
 
@@ -192,8 +185,6 @@ export const getRevenueAnalytics = () => {
     );
 
 };
-
-// ---------------- KPI ----------------
 
 export const getAnalyticsSummary = () => {
 

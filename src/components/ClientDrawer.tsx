@@ -9,11 +9,12 @@ import LinearProgress from "@mui/material/LinearProgress";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import "./ClientDrawer.css";
+import type { Client } from "../data/clients";
 
 interface Props {
     open: boolean;
     onClose: () => void;
-    client: any;
+    client: Client | null;
 }
 
 const ClientDrawer: React.FC<Props> = ({

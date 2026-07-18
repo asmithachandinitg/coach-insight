@@ -1,8 +1,9 @@
 import { useState } from "react";
+import type { Client } from "../../data/clients";
 import "./ClientHeader.css";
 
 interface Props {
-    client: any;
+    client: Client;
 }
 
 const ClientHeader = ({ client }: Props) => {
@@ -26,7 +27,6 @@ const ClientHeader = ({ client }: Props) => {
         }
     }
 
-    // this is the fix — default to the current month's value
     const [selectedMonth, setSelectedMonth] = useState(
         `${currentYear}-${currentMonth + 1}`
     );

@@ -11,27 +11,27 @@ const menu = [
   {
     name: "Dashboard",
     path: "/",
-    icon: <DashboardIcon />,
+    icon: <DashboardIcon aria-hidden="true" />,
   },
   {
     name: "Clients",
     path: "/clients",
-    icon: <GroupsIcon />,
+    icon: <GroupsIcon aria-hidden="true" />,
   },
   {
     name: "Analytics",
     path: "/analytics",
-    icon: <AnalyticsIcon />,
+    icon: <AnalyticsIcon aria-hidden="true" />,
   },
   {
     name: "Insights",
     path: "/insights",
-    icon: <LightbulbIcon />,
+    icon: <LightbulbIcon aria-hidden="true" />,
   },
   {
     name: "Revenue & Payments",
     path: "/finance",
-    icon: <SettingsIcon />,
+    icon: <SettingsIcon aria-hidden="true" />,
   },
 ];
 
@@ -43,7 +43,7 @@ const Sidebar = () => {
         <p>Fitness Intelligence</p>
       </div>
 
-      <nav>
+      <nav aria-label="Main navigation">
         {menu.map((item) => (
           <NavLink
             key={item.name}

@@ -1,4 +1,5 @@
 import Plot from "react-plotly.js";
+import { getPlotlyConfig } from "../../utils/plotlyConfig";
 import "./MonthlyCollections.css";
 
 const data = [
@@ -45,7 +46,7 @@ const MonthlyCollections = () => {
                     },
                     showlegend: false,
                 }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={getPlotlyConfig("monthly-collections")}
                 style={{ width: "100%" }}
                 useResizeHandler
             />
