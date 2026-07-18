@@ -8,6 +8,7 @@ import type { Client } from "../types";
 import ClientDrawer from "../components/ClientDrawer";
 import DeleteClientModal from "../modal/DeleteClientModal";
 import AddClientModal from "../modal/AddClientModal";
+import type { ClientForm } from "../modal/AddClientModal";
 import EmptyState from "../components/EmptyState";
 import { exportToCSV } from "../utils/csvExport";
 import { usePersistedState } from "../utils/usePersistedState";
@@ -82,7 +83,7 @@ const Clients = () => {
 
     function handleExportCSV() {
         exportToCSV(
-            sortedClients,
+            sortedClients as unknown as Record<string, unknown>[],
             `clients-export-${new Date().toISOString().slice(0, 10)}.csv`,
             [
                 { key: "id", label: "ID" },
@@ -308,7 +309,7 @@ const Clients = () => {
 
             <AddClientModal
                 open={editOpen}
-                editClient={selectedClient}
+                editClient={selectedClient ? (selectedClient as unknown as ClientForm) : undefined}
                 onClose={() => {
                     setEditOpen(false);
                     setSelectedClient(null);

@@ -24,7 +24,7 @@ interface AddClientModalProps {
     editClient?: ClientForm;
 }
 
-interface ClientForm {
+export interface ClientForm {
     name: string;
     age: string;
     gender: string;
