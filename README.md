@@ -119,6 +119,28 @@ npm run build     # production build
 
 ---
 
+## Screenshot
+
+<img width="1919" height="942" alt="Screenshot 2026-07-18 092426" src="https://github.com/user-attachments/assets/ae14671d-6cb3-46ad-8a30-002d23a4c06e" />
+
+---
+
+<img width="1908" height="940" alt="Screenshot 2026-07-18 092837" src="https://github.com/user-attachments/assets/1fe131fa-1ee6-410a-842f-7bfa292949b0" />
+
+---
+
+<img width="1896" height="942" alt="Screenshot 2026-07-18 092957" src="https://github.com/user-attachments/assets/dd6f1ca3-8427-49a4-9aae-0df901664ac0" />
+
+---
+
+<img width="1887" height="947" alt="Screenshot 2026-07-18 093009" src="https://github.com/user-attachments/assets/05b676cd-89ec-45f5-bd52-ac62758f863a" />
+
+---
+
+<img width="1909" height="932" alt="Screenshot 2026-07-18 093024" src="https://github.com/user-attachments/assets/edd3c339-2e6a-45e6-b7d6-6f070d775d48" />
+
+---
+
 ## Author
 
 Built as part of a Product Interface Engineer take-home assessment, focused on frontend architecture, interactive data visualization, responsive design, and product/UX judgment under a real user constraint.
