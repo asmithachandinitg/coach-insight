@@ -1,194 +1,53 @@
-import { useEffect, useRef } from "react";
-import * as d3 from "d3";
+import Plot from "react-plotly.js";
 import { getClientGrowth } from "../../data/analytics";
-
 import "./ClientGrowth.css";
 
 const ClientGrowth = () => {
-    const chartRef = useRef<SVGSVGElement | null>(null);
-
-    useEffect(() => {
-
-        if (!chartRef.current) return;
-
-        const svg = d3.select(chartRef.current);
-
-        svg.selectAll("*").remove();
-
-        const width = 500;
-        const height = 320;
-
-        const margin = {
-            top: 30,
-            right: 30,
-            bottom: 45,
-            left: 45,
-        };
-
-        svg
-            .attr("width", width)
-            .attr("height", height);
-
-        const chart = svg
-            .append("g")
-            .attr(
-                "transform",
-                `translate(${margin.left},${margin.top})`
-            );
 
     const data = getClientGrowth();
 
-        const x = d3
-            .scalePoint<string>()
-            .domain(data.map(d => d.month))
-            .range([
-                0,
-                width - margin.left - margin.right,
-            ]);
-
-        const y = d3
-            .scaleLinear()
-            .domain([
-                0,
-                d3.max(data, d => d.clients)! + 2,
-            ])
-            .nice()
-            .range([
-                height - margin.top - margin.bottom,
-                0,
-            ]);
-
-        chart
-            .append("g")
-            .attr(
-                "transform",
-                `translate(0,${
-                    height -
-                    margin.top -
-                    margin.bottom
-                })`
-            )
-            .call(d3.axisBottom(x));
-
-        chart
-            .append("g")
-            .call(d3.axisLeft(y));
-
-        chart
-            .selectAll(".domain")
-            .attr("stroke", "#d8b4fe");
-
-        chart
-            .selectAll(".tick line")
-            .attr("stroke", "#ede9fe");
-
-        chart
-            .selectAll(".tick text")
-            .style("font-size", "12px")
-            .style("fill", "#6b7280");
-
-        const line = d3
-            .line<(typeof data)[0]>()
-            .x(d => x(d.month)!)
-            .y(d => y(d.clients))
-            .curve(d3.curveCatmullRom);
-
-        chart
-            .append("path")
-            .datum(data)
-            .attr("fill", "none")
-            .attr("stroke", "#8B5CF6")
-            .attr("stroke-width", 4)
-            .attr("d", line);
-
-        chart
-            .selectAll(".point")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", d => x(d.month)!)
-            .attr("cy", d => y(d.clients))
-            .attr("r", 6)
-            .attr("fill", "#8B5CF6")
-            .attr("stroke", "#fff")
-            .attr("stroke-width", 3);
-
-        const tooltip = d3
-            .select("body")
-            .append("div")
-            .attr("class", "growth-tooltip")
-            .style("opacity", 0);
-
-        chart
-            .selectAll(".hover-circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", d => x(d.month)!)
-            .attr("cy", d => y(d.clients))
-            .attr("r", 14)
-            .attr("fill", "transparent")
-            .style("cursor", "pointer")
-            .on("mouseover", (event, d) => {
-
-                tooltip
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 1);
-
-                tooltip
-                    .html(`
-                        <strong>${d.month}</strong>
-                        <br/>
-                        Clients: ${d.clients}
-                    `)
-                    .style("left", `${event.pageX + 15}px`)
-                    .style("top", `${event.pageY - 35}px`);
-
-            })
-            .on("mousemove", (event) => {
-
-                tooltip
-                    .style("left", `${event.pageX + 15}px`)
-                    .style("top", `${event.pageY - 35}px`);
-
-            })
-            .on("mouseleave", () => {
-
-                tooltip
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 0);
-
-            });
-
-        return () => {
-
-            tooltip.remove();
-
-        };
-
-    }, []);
-
     return (
         <div className="growth-card">
-
             <div className="growth-header">
-
                 <div>
-
                     <h2>Client Growth</h2>
-
-                    <p>
-                        Monthly client registrations
-                    </p>
-
+                    <p>Monthly client registrations</p>
                 </div>
-
             </div>
 
-            <svg ref={chartRef}></svg>
-
+            <Plot
+                data={[
+                    {
+                        x: data.map((d) => d.month),
+                        y: data.map((d) => d.clients),
+                        type: "scatter",
+                        mode: "lines+markers",
+                        line: { color: "#8B5CF6", width: 4, shape: "spline" },
+                        marker: { color: "#8B5CF6", size: 9, line: { color: "#fff", width: 3 } },
+                        hovertemplate: "<b>%{x}</b><br>Clients: %{y}<extra></extra>",
+                    },
+                ]}
+                layout={{
+                    autosize: true,
+                    height: 320,
+                    margin: { l: 45, r: 30, t: 30, b: 45 },
+                    paper_bgcolor: "transparent",
+                    plot_bgcolor: "transparent",
+                    font: { family: "inherit", size: 12, color: "#6b7280" },
+                    xaxis: { showgrid: false, zeroline: false },
+                    yaxis: {
+                        rangemode: "tozero",
+                        showgrid: true,
+                        gridcolor: "#ede9fe",
+                        zeroline: false,
+                    },
+                    showlegend: false,
+                    hoverlabel: { bgcolor: "#8B5CF6", font: { color: "#fff" } },
+                }}
+                config={{ displayModeBar: false, responsive: true }}
+                style={{ width: "100%" }}
+                useResizeHandler
+            />
         </div>
     );
 };

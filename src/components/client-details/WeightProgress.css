@@ -33,7 +33,6 @@
   overflow: visible;
 }
 
-/* d3 axis text */
 .weight-progress-card .tick text {
   font-size: 12px;
   fill: #9ca3af;

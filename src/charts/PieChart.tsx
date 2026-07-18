@@ -1,5 +1,4 @@
-import { useEffect, useRef } from "react";
-import * as d3 from "d3";
+import Plot from "react-plotly.js";
 import "./PieChart.css";
 
 interface PieChartData {
@@ -22,190 +21,70 @@ const COLORS = [
     "#EF4444",
 ];
 
-const PieChart = ({
-    title,
-    subtitle,
-    data,
-}: PieChartProps) => {
+const PieChart = ({ title, subtitle, data }: PieChartProps) => {
 
-    const svgRef =
-        useRef<SVGSVGElement>(null);
-
-    useEffect(() => {
-
-        if (!svgRef.current) return;
-
-        const width = 260;
-        const height = 260;
-
-        const radius =
-            Math.min(width, height) / 2 - 15;
-
-        const svg = d3
-            .select(svgRef.current);
-
-        svg.selectAll("*").remove();
-
-        const chart = svg
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr(
-                "transform",
-                `translate(${width / 2},${height / 2})`
-            );
-
-        const pie = d3
-            .pie<PieChartData>()
-            .value(d => d.value)
-            .sort(null);
-
-        const arc = d3
-            .arc<d3.PieArcDatum<PieChartData>>()
-            .innerRadius(70)
-            .outerRadius(radius);
-
-        const arcs =
-            chart
-                .selectAll("path")
-                .data(pie(data))
-                .enter();
-
-        arcs
-            .append("path")
-            .attr("d", arc)
-            .attr(
-                "fill",
-                (_, i) =>
-                    COLORS[
-                        i % COLORS.length
-                    ]
-            )
-            .attr(
-                "stroke",
-                "#fff"
-            )
-            .attr(
-                "stroke-width",
-                3
-            )
-            .style(
-                "transition",
-                "0.3s"
-            )
-            .on(
-                "mouseover",
-                function () {
-
-                    d3.select(this)
-                        .transition()
-                        .duration(200)
-                        .attr(
-                            "transform",
-                            "scale(1.05)"
-                        );
-
-                }
-            )
-            .on(
-                "mouseout",
-                function () {
-
-                    d3.select(this)
-                        .transition()
-                        .duration(200)
-                        .attr(
-                            "transform",
-                            "scale(1)"
-                        );
-
-                }
-            );
-                    chart
-            .append("text")
-            .attr("text-anchor", "middle")
-            .attr("dy", "-6")
-            .attr("class", "pie-total")
-            .text(
-                data.reduce(
-                    (sum, item) => sum + item.value,
-                    0
-                )
-            );
-
-        chart
-            .append("text")
-            .attr("text-anchor", "middle")
-            .attr("dy", "16")
-            .attr("class", "pie-label")
-            .text("Clients");
-
-    }, [data]);
+    const total = data.reduce((sum, item) => sum + item.value, 0);
 
     return (
-
         <div className="pie-card">
-
             <div className="pie-header">
-
                 <h2>{title}</h2>
-
                 <p>{subtitle}</p>
-
             </div>
 
             <div className="pie-content">
-
-                <svg ref={svgRef}></svg>
+                <Plot
+                    data={[
+                        {
+                            type: "pie",
+                            labels: data.map((d) => d.label),
+                            values: data.map((d) => d.value),
+                            hole: 0.62,
+                            marker: {
+                                colors: data.map((_, i) => COLORS[i % COLORS.length]),
+                                line: { color: "#fff", width: 3 },
+                            },
+                            textinfo: "none",
+                            hovertemplate: "<b>%{label}</b><br>%{value} clients<extra></extra>",
+                            sort: false,
+                        },
+                    ]}
+                    layout={{
+                        width: 260,
+                        height: 260,
+                        margin: { l: 10, r: 10, t: 10, b: 10 },
+                        showlegend: false,
+                        paper_bgcolor: "transparent",
+                        annotations: [
+                            {
+                                text: `<b>${total}</b><br>Clients`,
+                                showarrow: false,
+                                font: { size: 16, color: "#1f2937" },
+                                x: 0.5,
+                                y: 0.5,
+                            },
+                        ],
+                    }}
+                    config={{ displayModeBar: false }}
+                />
 
                 <div className="pie-legend">
-
                     {data.map((item, index) => (
-
-                        <div
-                            className="legend-item"
-                            key={item.label}
-                        >
-
+                        <div className="legend-item" key={item.label}>
                             <span
                                 className="legend-color"
-                                style={{
-                                    background:
-                                        COLORS[
-                                            index %
-                                                COLORS.length
-                                        ],
-                                }}
+                                style={{ background: COLORS[index % COLORS.length] }}
                             />
-
                             <div>
-
-                                <h4>
-                                    {item.label}
-                                </h4>
-
-                                <p>
-
-                                    {item.value}
-
-                                    {" "}Clients
-
-                                </p>
-
+                                <h4>{item.label}</h4>
+                                <p>{item.value} Clients</p>
                             </div>
-
                         </div>
-
                     ))}
-
                 </div>
-
             </div>
-
         </div>
-
     );
-
 };
 
 export default PieChart;

@@ -1,112 +1,53 @@
-import { useEffect, useRef } from "react";
-import * as d3 from "d3";
+import Plot from "react-plotly.js";
 import { clients } from "../../data/clients";
 import "./MembershipAnalytics.css";
 
 const MembershipAnalytics = () => {
-    const svgRef = useRef<SVGSVGElement | null>(null);
 
-    useEffect(() => {
-        if (!svgRef.current) return;
-
-        const membershipMap = new Map<string, number>();
-
-        clients.forEach((client) => {
-            membershipMap.set(
-                client.membership,
-                (membershipMap.get(client.membership) || 0) + 1
-            );
-        });
-
-        const data = Array.from(membershipMap.entries()).map(
-            ([membership, count]) => ({
-                membership,
-                count,
-            })
-        );
-
-        const width = 500;
-        const height = 320;
-
-        const margin = {
-            top: 20,
-            right: 20,
-            bottom: 60,
-            left: 50,
-        };
-
-        const svg = d3.select(svgRef.current);
-        svg.selectAll("*").remove();
-
-        const x = d3
-            .scaleBand()
-            .domain(data.map((d) => d.membership))
-            .range([margin.left, width - margin.right])
-            .padding(0.35);
-
-        const y = d3
-            .scaleLinear()
-            .domain([0, d3.max(data, (d) => d.count)!])
-            .nice()
-            .range([height - margin.bottom, margin.top]);
-
-        svg.append("g")
-            .attr(
-                "transform",
-                `translate(0,${height - margin.bottom})`
-            )
-            .call(d3.axisBottom(x))
-            .selectAll("text")
-            .style("font-size", "11px")
-            .style("text-anchor", "middle");
-
-        svg.append("g")
-            .attr(
-                "transform",
-                `translate(${margin.left},0)`
-            )
-            .call(d3.axisLeft(y));
-
-        svg.selectAll(".bar")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("class", "bar")
-            .attr("x", (d) => x(d.membership)!)
-            .attr("y", (d) => y(d.count))
-            .attr("width", x.bandwidth())
-            .attr("height", (d) => height - margin.bottom - y(d.count))
-            .attr("rx", 8)
-            .attr("fill", "#8B5CF6");
-
-        svg.selectAll(".label")
-            .data(data)
-            .enter()
-            .append("text")
-            .attr("x", (d) => x(d.membership)! + x.bandwidth() / 2)
-            .attr("y", (d) => y(d.count) - 8)
-            .attr("text-anchor", "middle")
-            .style("font-size", "12px")
-            .style("font-weight", "600")
-            .text((d) => d.count);
-
-    }, []);
+    const membershipMap = new Map<string, number>();
+    clients.forEach((client) => {
+        membershipMap.set(client.membership, (membershipMap.get(client.membership) || 0) + 1);
+    });
+    const data = Array.from(membershipMap.entries()).map(([membership, count]) => ({
+        membership,
+        count,
+    }));
 
     return (
         <div className="analytics-card">
-
             <div className="card-header">
                 <h3>Membership Analytics</h3>
                 <span>Clients by membership plan</span>
             </div>
 
-            <svg
-                ref={svgRef}
-                width="100%"
-                height="320"
-                viewBox="0 0 500 320"
+            <Plot
+                data={[
+                    {
+                        x: data.map((d) => d.membership),
+                        y: data.map((d) => d.count),
+                        type: "bar",
+                        marker: { color: "#8B5CF6" },
+                        text: data.map((d) => `${d.count}`),
+                        textposition: "outside",
+                        textfont: { size: 12, color: "#374151" },
+                        hovertemplate: "<b>%{x}</b><br>%{y} clients<extra></extra>",
+                    },
+                ]}
+                layout={{
+                    autosize: true,
+                    height: 320,
+                    margin: { l: 50, r: 20, t: 20, b: 60 },
+                    paper_bgcolor: "transparent",
+                    plot_bgcolor: "transparent",
+                    font: { family: "inherit", size: 11, color: "#374151" },
+                    xaxis: { showgrid: false, zeroline: false },
+                    yaxis: { showgrid: true, gridcolor: "#e5e7eb", zeroline: false },
+                    showlegend: false,
+                }}
+                config={{ displayModeBar: false, responsive: true }}
+                style={{ width: "100%" }}
+                useResizeHandler
             />
-
         </div>
     );
 };
