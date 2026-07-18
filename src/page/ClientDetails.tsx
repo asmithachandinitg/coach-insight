@@ -27,10 +27,10 @@ const navigate = useNavigate();
     const [openModal, setOpenModal] =
         useState(false);
 
-    const [mode, setMode] =
+    const [mode] =
         useState<"add" | "edit">("add");
 
-    const [selectedLog, setSelectedLog] =
+    const [selectedLog] =
         useState<any>(null);
 
     if (!client) {

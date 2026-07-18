@@ -1,28 +1,5 @@
 import { clients } from "../data/clients";
 
-const MONTHS = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-];
-
-const today = new Date();
-
-const validClients = clients.filter(client => {
-    const joinDate = new Date(client.joinDate);
-    return joinDate <= today;
-});
-
-
 export const getClientGrowth = () => {
 
     const today = new Date();

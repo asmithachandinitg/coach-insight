@@ -1,6 +1,5 @@
 import { dailyLogs } from "../../data/dailyLogs";
 import GoalProgress from "./GoalProgress";
-import WeightProgress from "./WeightProgress";
 import "./MonthlySummary.css";
 
 const MonthlySummary = () => {
@@ -53,13 +52,6 @@ const MonthlySummary = () => {
                     1
             ].weight
         ).toFixed(1);
-
-    const consistency =
-        Math.round(
-            (totalWorkouts /
-                dailyLogs.length) *
-                100
-        );
 
     const bestDay =
         dailyLogs.reduce(

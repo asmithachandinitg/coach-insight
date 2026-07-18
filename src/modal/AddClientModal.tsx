@@ -138,14 +138,10 @@ useEffect(() => {
             targetWeight: String(editClient.targetWeight || ""),
             height: String(editClient.height || ""),
 
-            workoutDays: editClient.workoutDay
-                ? editClient.workoutDay
-                      .split(",")
-                      .map((day: string) => day.trim())
-                : [],
+            workoutDays: editClient.workoutDays ?? [],
 
-            preferredTime: editClient.sessionTime || "",
-            startDate: editClient.joinDate || "",
+            preferredTime: editClient.preferredTime || "",
+            startDate: editClient.startDate || "",
             notes: editClient.notes || "",
         });
 
@@ -759,4 +755,3 @@ useEffect(() => {
 };
 
 export default AddClientModal;
-
