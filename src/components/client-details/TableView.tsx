@@ -12,55 +12,106 @@ const TableView = () => {
 
     const rowsPerPage = 10;
 
-    const [page, setPage] =
-        useState(1);
+    const [page, setPage] = useState(1);
+    const [workoutFilter, setWorkoutFilter] = useState("All");
+    const [statusFilter, setStatusFilter] = useState("All");
+    const [dateFilter, setDateFilter] = useState("");
 
-    const today = new Date();
-    const currentDate = today.getDate();
+    const workoutOptions = useMemo(() => {
+        const unique = Array.from(new Set(dailyLogs.map((log) => log.workout)));
+        return ["All", ...unique];
+    }, []);
 
     const logs = useMemo(() => {
 
         return dailyLogs
-
-           .filter(log => {
-
-    const day = Number(
-        log.date.split("-")[2]
-    );
-
-    return day <= currentDate;
-
-})
-
+            .filter((log) =>
+                workoutFilter === "All" || log.workout === workoutFilter
+            )
+            .filter((log) =>
+                statusFilter === "All" || log.status === statusFilter
+            )
+            .filter((log) =>
+                dateFilter === "" || log.date === dateFilter
+            )
             .sort(
-
                 (a, b) =>
-
                     new Date(b.date).getTime() -
-
                     new Date(a.date).getTime()
-
             );
 
-    }, []);
+    }, [workoutFilter, statusFilter, dateFilter]);
 
-    const totalPages = Math.ceil(
-
-        logs.length / rowsPerPage
-
-    );
+    const totalPages = Math.max(1, Math.ceil(logs.length / rowsPerPage));
 
     const currentRows = logs.slice(
-
         (page - 1) * rowsPerPage,
-
         page * rowsPerPage
-
     );
+
+    function handleWorkoutFilter(value: string) {
+        setWorkoutFilter(value);
+        setPage(1);
+    }
+
+    function handleStatusFilter(value: string) {
+        setStatusFilter(value);
+        setPage(1);
+    }
+
+    function handleDateFilter(value: string) {
+        setDateFilter(value);
+        setPage(1);
+    }
 
     return (
 
         <div className="table-card">
+
+            <div className="table-filters">
+
+                <select
+                    value={workoutFilter}
+                    onChange={(e) => handleWorkoutFilter(e.target.value)}
+                >
+                    {workoutOptions.map((option) => (
+                        <option key={option} value={option}>
+                            {option === "All" ? "All workouts" : option}
+                        </option>
+                    ))}
+                </select>
+
+                <select
+                    value={statusFilter}
+                    onChange={(e) => handleStatusFilter(e.target.value)}
+                >
+                    <option value="All">All statuses</option>
+                    <option value="completed">Completed</option>
+                    <option value="partial">Partial</option>
+                    <option value="missed">Missed</option>
+                </select>
+
+                <input
+                    type="date"
+                    value={dateFilter}
+                    onChange={(e) => handleDateFilter(e.target.value)}
+                    className="table-date-filter"
+                />
+
+                {dateFilter !== "" && (
+                    <button
+                        className="table-clear-date"
+                        onClick={() => handleDateFilter("")}
+                    >
+                        Clear date
+                    </button>
+                )}
+
+                <span className="table-results-count">
+                    {logs.length} {logs.length === 1 ? "entry" : "entries"}
+                </span>
+
+            </div>
 
             <table>
 
@@ -91,6 +142,14 @@ const TableView = () => {
                 </thead>
 
                 <tbody>
+
+                    {currentRows.length === 0 && (
+                        <tr>
+                            <td colSpan={9} className="table-empty-state">
+                                No logs match your filters.
+                            </td>
+                        </tr>
+                    )}
 
                     {currentRows.map(log => (
 

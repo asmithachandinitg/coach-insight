@@ -6,11 +6,11 @@ img, svg, canvas, iframe, video {
     max-width: 100%;
 }
 
-table {
+/* table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
-}
+} */
 
 @media (max-width: 900px) {
 
