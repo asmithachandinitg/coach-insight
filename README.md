@@ -2,6 +2,7 @@
 
 A focused BI dashboard built for a single personal trainer to track client progress, attendance, and goals — designed around a real trainer's actual daily workflow rather than a generic analytics template.
 
+live demo: https://coach-insight-wkqp-bay.vercel.app/
 ---
 
 ## The problem
